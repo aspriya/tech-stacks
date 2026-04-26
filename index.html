@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Stacks &middot; Reference docs for AI coding agents</title>
+  <meta name="description" content="Curated tech-stack documentation packs designed to be dropped into a project's docs/ folder so AI coding agents (Devin, Copilot, Cursor, Claude Code) can pick up the stack instantly." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%B1%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #14171c;
+      --surface-2: #1b1f26;
+      --border: #262b34;
+      --text: #e6e8eb;
+      --muted: #9aa2ad;
+      --accent: #f6821f; /* cloudflare-ish orange */
+      --accent-2: #ffb45a;
+      --link: #82b1ff;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --surface: #ffffff;
+        --surface-2: #f3f4f6;
+        --border: #e5e7eb;
+        --text: #14171c;
+        --muted: #5b6572;
+        --accent: #d96c12;
+        --accent-2: #b45309;
+        --link: #1d4ed8;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header.site {
+      padding: 56px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    header.site h1 {
+      margin: 0 0 12px;
+      font-size: 40px;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    header.site p.lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 720px;
+    }
+    header.site .badge {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(246, 130, 31, 0.12);
+      border: 1px solid rgba(246, 130, 31, 0.35);
+      border-radius: 999px;
+    }
+    main { flex: 1; padding: 40px 0 64px; }
+    section + section { margin-top: 48px; }
+    h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .card .meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .card .arrow {
+      margin-left: auto;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .card a.cover {
+      position: absolute;
+      inset: 0;
+    }
+    .card-wrap { position: relative; }
+    .how {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .how ol { margin: 8px 0 0; padding-left: 22px; }
+    .how li { margin: 6px 0; color: var(--muted); }
+    .how code, code.inline {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+      color: var(--text);
+    }
+    pre.snippet {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+      font-size: 13px;
+      color: var(--text);
+      margin: 12px 0 0;
+    }
+    footer.site {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer.site .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="container">
+      <span class="badge">For AI coding agents</span>
+      <h1>Tech Stacks</h1>
+      <p class="lede">Curated, opinionated tech-stack docs designed to be dropped into a project's <code class="inline">docs/</code> folder. Agents like Devin, Copilot, Cursor, and Claude Code read these to pick the right tools and patterns from day one.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <section>
+        <h2>Available stacks</h2>
+        <div class="grid">
+
+          <div class="card-wrap">
+            <a class="card" href="./nextjs-cloudflare/">
+              <h3>Next.js + Cloudflare</h3>
+              <p>Small-to-mid SaaS on Cloudflare Workers via OpenNext. D1, R2, KV, Durable Objects, Queues, Workflows, Vectorize, Workers AI. Includes a Wrangler &amp; MCP automation playbook.</p>
+              <div class="meta">
+                <span>2 documents</span>
+                <span class="arrow">Browse files &rarr;</span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <h2>How to use</h2>
+        <div class="how">
+          <ol>
+            <li>Open a stack page and download the markdown files you need.</li>
+            <li>Drop them into your project under <code class="inline">docs/</code>.</li>
+            <li>Point your AI agent at <code class="inline">docs/</code>, or attach the files when starting a session.</li>
+            <li>The agent now knows the stack, conventions, and what <em>not</em> to do.</li>
+          </ol>
+          <pre class="snippet"><code># From the root of your new project
+mkdir -p docs
+curl -L -o docs/tech-stack.md \
+  https://&lt;your-username&gt;.github.io/tech-stacks/nextjs-cloudflare/tech-stack.md</code></pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      <div class="row">
+        <span>Maintained as a personal reference. Verify pricing &amp; product status with each vendor before committing.</span>
+        <a href="https://github.com/aspriya/tech-stacks">View on GitHub &rarr;</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

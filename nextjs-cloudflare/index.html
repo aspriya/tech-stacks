@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Next.js + Cloudflare &middot; Tech Stacks</title>
+  <meta name="description" content="Tech-stack documentation pack for building small-to-mid SaaS on Next.js + Cloudflare Workers. Drop the markdown files into your project's docs/ folder for AI coding agents." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%81%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #14171c;
+      --surface-2: #1b1f26;
+      --border: #262b34;
+      --text: #e6e8eb;
+      --muted: #9aa2ad;
+      --accent: #f6821f;
+      --accent-2: #ffb45a;
+      --link: #82b1ff;
+      --success: #4ade80;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --surface: #ffffff;
+        --surface-2: #f3f4f6;
+        --border: #e5e7eb;
+        --text: #14171c;
+        --muted: #5b6572;
+        --accent: #d96c12;
+        --accent-2: #b45309;
+        --link: #1d4ed8;
+        --success: #16a34a;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header.site {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .breadcrumb {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--text); }
+    header.site h1 {
+      margin: 0 0 12px;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    header.site p.lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 720px;
+    }
+    main { flex: 1; padding: 40px 0 64px; }
+    section + section { margin-top: 40px; }
+    h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .file {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .file .info h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .file .info h3 .name {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .file .info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: stretch;
+      min-width: 160px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .btn:hover { border-color: var(--accent); text-decoration: none; }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .btn.primary:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+    }
+    .btn.copied {
+      color: var(--success);
+      border-color: var(--success);
+    }
+    @media (max-width: 640px) {
+      .file { grid-template-columns: 1fr; }
+      .actions { min-width: 0; }
+    }
+    .download-all {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .download-all p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .download-all strong { color: var(--text); }
+    pre.snippet {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+      font-size: 13px;
+      color: var(--text);
+      margin: 0;
+      position: relative;
+    }
+    .snippet-wrap { position: relative; }
+    .snippet-wrap .copy-snippet {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+    code.inline {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
+      color: var(--text);
+    }
+    footer.site {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer.site .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="../">&larr; All tech stacks</a>
+      </div>
+      <h1>Next.js + Cloudflare</h1>
+      <p class="lede">A small-to-mid SaaS stack: Next.js (App Router) deployed to Cloudflare Workers via OpenNext, with D1, R2, KV, Durable Objects, Queues, Workflows, Vectorize, and Workers AI. Includes a Wrangler &amp; MCP automation playbook for AI agents.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <section>
+        <h2>Documents</h2>
+        <div class="file-list" id="files">
+
+          <div class="file" data-name="tech-stack.md">
+            <div class="info">
+              <h3>Tech Stack Reference <span class="name">tech-stack.md</span></h3>
+              <p>The canonical stack: framework choices, hosting, data layer decision tree (D1 / KV / R2 / Durable Objects / Hyperdrive / Vectorize), async work, auth, AI features, and the rules an agent must follow.</p>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="./tech-stack.md" download="tech-stack.md">&darr; Download</a>
+              <a class="btn" href="./tech-stack.md" target="_blank" rel="noopener">View raw</a>
+              <button class="btn copy-url" type="button" data-url="./tech-stack.md">Copy URL</button>
+            </div>
+          </div>
+
+          <div class="file" data-name="cloudflare-automation.md">
+            <div class="info">
+              <h3>Cloudflare Automation <span class="name">cloudflare-automation.md</span></h3>
+              <p>Wrangler CLI cheatsheet plus Cloudflare's official MCP servers. How an agent provisions, deploys, and operates Cloudflare resources without dashboard work.</p>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="./cloudflare-automation.md" download="cloudflare-automation.md">&darr; Download</a>
+              <a class="btn" href="./cloudflare-automation.md" target="_blank" rel="noopener">View raw</a>
+              <button class="btn copy-url" type="button" data-url="./cloudflare-automation.md">Copy URL</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <h2>Grab everything in one go</h2>
+        <div class="download-all">
+          <p><strong>Pull both files into <code class="inline">docs/</code></strong> from your new project's root:</p>
+        </div>
+        <div class="snippet-wrap" style="margin-top:12px">
+          <button class="btn copy-snippet" type="button" data-target="curl-snippet">Copy</button>
+<pre class="snippet" id="curl-snippet"><code>mkdir -p docs
+BASE="https://aspriya.github.io/tech-stacks/nextjs-cloudflare"
+curl -L -o docs/tech-stack.md            "$BASE/tech-stack.md"
+curl -L -o docs/cloudflare-automation.md "$BASE/cloudflare-automation.md"</code></pre>
+        </div>
+        <p style="color:var(--muted); font-size:13px; margin-top:10px">
+          Or PowerShell:
+        </p>
+        <div class="snippet-wrap">
+          <button class="btn copy-snippet" type="button" data-target="ps-snippet">Copy</button>
+<pre class="snippet" id="ps-snippet"><code>New-Item -ItemType Directory -Force -Path docs | Out-Null
+$base = "https://aspriya.github.io/tech-stacks/nextjs-cloudflare"
+Invoke-WebRequest "$base/tech-stack.md"            -OutFile docs/tech-stack.md
+Invoke-WebRequest "$base/cloudflare-automation.md" -OutFile docs/cloudflare-automation.md</code></pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      <div class="row">
+        <span>Last updated: April 2026. Verify Cloudflare pricing &amp; product status before committing to tier-sensitive decisions.</span>
+        <a href="https://github.com/aspriya/tech-stacks">View on GitHub &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function flash(btn, text) {
+        var original = btn.textContent;
+        btn.textContent = text;
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1500);
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            resolve();
+          } catch (e) { reject(e); }
+        });
+      }
+
+      document.querySelectorAll('.copy-url').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var rel = btn.getAttribute('data-url');
+          var absolute = new URL(rel, window.location.href).toString();
+          copyText(absolute).then(function () {
+            flash(btn, 'Copied!');
+          }).catch(function () {
+            flash(btn, 'Failed');
+          });
+        });
+      });
+
+      document.querySelectorAll('.copy-snippet').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = document.getElementById(btn.getAttribute('data-target'));
+          if (!target) return;
+          copyText(target.innerText).then(function () {
+            flash(btn, 'Copied!');
+          }).catch(function () {
+            flash(btn, 'Failed');
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
