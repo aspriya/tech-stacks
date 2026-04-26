@@ -262,20 +262,46 @@
             </div>
           </div>
 
+          <div class="file" data-name="payment-processing.md">
+            <div class="info">
+              <h3>Payment Processing <span class="name">payment-processing.md</span></h3>
+              <p>Picking a payment processor for a global SaaS as a Sri Lanka&ndash;based founder. Merchant of Record vs. gateway, Polar / Paddle / Lemon Squeezy / Dodo comparison, and the architectural rules an agent should follow when wiring up billing.</p>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="./payment-processing.md" download="payment-processing.md">&darr; Download</a>
+              <a class="btn" href="./payment-processing.md" target="_blank" rel="noopener">View raw</a>
+              <button class="btn copy-url" type="button" data-url="./payment-processing.md">Copy URL</button>
+            </div>
+          </div>
+
+          <div class="file" data-name="tip-jars-and-donations.md">
+            <div class="info">
+              <h3>Tip Jars &amp; Donations <span class="name">tip-jars-and-donations.md</span></h3>
+              <p>Adding optional &ldquo;buy me a coffee&rdquo; / pay-what-you-want flows. Why most tip platforms don't work for Sri Lankan founders, and the two-tier strategy using Polar (in-product) and GitHub Sponsors (public).</p>
+            </div>
+            <div class="actions">
+              <a class="btn primary" href="./tip-jars-and-donations.md" download="tip-jars-and-donations.md">&darr; Download</a>
+              <a class="btn" href="./tip-jars-and-donations.md" target="_blank" rel="noopener">View raw</a>
+              <button class="btn copy-url" type="button" data-url="./tip-jars-and-donations.md">Copy URL</button>
+            </div>
+          </div>
+
         </div>
       </section>
 
       <section>
         <h2>Grab everything in one go</h2>
         <div class="download-all">
-          <p><strong>Pull both files into <code class="inline">docs/</code></strong> from your new project's root:</p>
+          <p><strong>Pull all four files into <code class="inline">docs/</code></strong> from your new project's root:</p>
         </div>
         <div class="snippet-wrap" style="margin-top:12px">
           <button class="btn copy-snippet" type="button" data-target="curl-snippet">Copy</button>
 <pre class="snippet" id="curl-snippet"><code>mkdir -p docs
 BASE="https://aspriya.github.io/tech-stacks/nextjs-cloudflare"
-curl -L -o docs/tech-stack.md            "$BASE/tech-stack.md"
-curl -L -o docs/cloudflare-automation.md "$BASE/cloudflare-automation.md"</code></pre>
+curl -L -o docs/tech-stack.md             "$BASE/tech-stack.md"
+curl -L -o docs/cloudflare-automation.md  "$BASE/cloudflare-automation.md"
+curl -L -o docs/payment-processing.md     "$BASE/payment-processing.md"
+curl -L -o docs/tip-jars-and-donations.md "$BASE/tip-jars-and-donations.md"</code></pre>
         </div>
         <p style="color:var(--muted); font-size:13px; margin-top:10px">
           Or PowerShell:
@@ -284,8 +310,10 @@ curl -L -o docs/cloudflare-automation.md "$BASE/cloudflare-automation.md"</code>
           <button class="btn copy-snippet" type="button" data-target="ps-snippet">Copy</button>
 <pre class="snippet" id="ps-snippet"><code>New-Item -ItemType Directory -Force -Path docs | Out-Null
 $base = "https://aspriya.github.io/tech-stacks/nextjs-cloudflare"
-Invoke-WebRequest "$base/tech-stack.md"            -OutFile docs/tech-stack.md
-Invoke-WebRequest "$base/cloudflare-automation.md" -OutFile docs/cloudflare-automation.md</code></pre>
+Invoke-WebRequest "$base/tech-stack.md"             -OutFile docs/tech-stack.md
+Invoke-WebRequest "$base/cloudflare-automation.md"  -OutFile docs/cloudflare-automation.md
+Invoke-WebRequest "$base/payment-processing.md"     -OutFile docs/payment-processing.md
+Invoke-WebRequest "$base/tip-jars-and-donations.md" -OutFile docs/tip-jars-and-donations.md</code></pre>
         </div>
       </section>
 
